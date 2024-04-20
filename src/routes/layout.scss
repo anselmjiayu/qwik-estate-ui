@@ -1,0 +1,15 @@
+@import './responsive.scss';
+.wrapper {
+    height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    @include md {
+    }
+    @include lg {
+    }
+    @include xl {
+    }
+}
+
