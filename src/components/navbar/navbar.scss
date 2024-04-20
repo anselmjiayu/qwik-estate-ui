@@ -1,0 +1,115 @@
+@import '../../responsive.scss';
+
+// using more complex html makes styling a bit complicated too...
+
+.nav-wrapper {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left {
+        flex: 3;
+        .logo > a{
+            font-weight: bold;
+            font-size: 20px;
+            display: flex;
+            align-content: center;
+            gap: 10px;
+            img {
+                width: 28px;
+            }
+            span {
+                @include md {
+                    display: none;
+                }
+                @include sm {
+                    display: initial;
+                }
+            }
+        }
+    }
+    .right {
+        flex: 2;
+        background-color: #fcf5f3;
+        height: 100%; // adjusts bg size
+        @include md {
+            background-color: transparent;
+        }
+        ul {
+            height: 100%; // centers text
+            justify-content: flex-end;
+        }
+    }
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap:50px;
+    align-content: center;
+}
+
+li, span {
+    margin:auto 0;
+}
+
+// call to action styling
+
+.right li {
+    padding: 12px 24px;
+}
+
+.register {
+    background-color: #fece53;
+}
+
+// link styling
+
+li {
+    transition: all 0.4s ease;
+    &:hover {
+        scale: 1.05;
+    }
+    &:not(.logo){
+        @include sm {
+            display: none;
+        }
+    }
+}
+
+.menuIcon {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 30px;
+    z-index: 2;
+    img {
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+    }
+    @include sm {
+        display: inline;
+    }
+}
+
+.menu {
+    position: absolute;
+    top: 0px;
+    right: -50%;
+    background-color: black;
+    color: white;
+    height: 100vh;
+    width: 50%;
+    transition: right 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    gap: 50px;
+
+    &.active {
+        right: 0px;
+    }
+}
