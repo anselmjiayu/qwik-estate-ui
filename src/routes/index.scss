@@ -1,9 +1,51 @@
+@import '../responsive.scss';
+
 .homePage{
     display: flex;
     height: 100%;
     .textContainer {
-        .wrapper {
+        .text-wrapper {
             padding-right: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 50px;
+            height: 100%;
+
+            @include md {
+                padding: 0px;
+            }
+            @include sm {
+                justify-content: flex-start;
+            }
+
+            h2 {
+                font-size: 64px;
+                @include lg {
+                    font-size: 48px;
+                }
+            }
+            .boxes {
+                display: flex;
+                justify-content: space-between;
+                @include sm {
+                    display: none;
+                }
+            }
+            h3 span {
+                font-size: 36px;
+                font-weight: bold;
+                // reset default inline display of span to get vertical layout
+                display: block;
+                @include lg {
+                    font-size: 32px;
+                }
+            }
+            h3 {
+                font-size: 20px;
+                font-weight: 300;
+            }
+
         }
         flex:3;}
     .imgContainer {flex:2;
@@ -11,11 +53,19 @@
                    position: relative;
                    display: flex;
                    align-content: center;
+                   @include md {
+                       display: none;
+                   }
 
                    img {
                        width: 115%;
+                       height: auto;
                        position: absolute;
                        right: 0px;
+
+                       @include lg {
+                           width: 105%;
+                       }
                    }
                   }
 }

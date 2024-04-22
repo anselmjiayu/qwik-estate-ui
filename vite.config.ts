@@ -5,6 +5,7 @@
 import { defineConfig, type UserConfig } from "vite";
 import { qwikVite } from "@builder.io/qwik/optimizer";
 import { qwikCity } from "@builder.io/qwik-city/vite";
+import {qwikReact } from "@builder.io/qwik-react/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 
@@ -19,13 +20,15 @@ const { dependencies = {}, devDependencies = {} } = pkg as any as {
  */
 export default defineConfig(({ command, mode }): UserConfig => {
   return {
-    plugins: [qwikCity(), qwikVite(), tsconfigPaths()],
+      plugins: [qwikCity(), qwikVite(), tsconfigPaths(), qwikReact()],
+      base: "/",
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
       // Put problematic deps that break bundling here, mostly those with binaries.
       // For example ['better-sqlite3'] if you use that in server functions.
       exclude: [],
     },
+      assetsInclude: ['/public'],
     // This tells Vite how to bundle the server code.
     ssr:
       command === "build" && mode === "production"
