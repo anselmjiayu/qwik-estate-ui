@@ -1,4 +1,4 @@
-import { server$, type RequestHandler } from "@builder.io/qwik-city";
+import { server$, type RequestHandler, globalAction$, CookieOptions } from "@builder.io/qwik-city";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { isLoginProps, isRegisterProps } from "~/types/type-guards";
@@ -17,17 +17,24 @@ export const send500: RequestHandler = async (req, message = "Something went wro
 
 const DURATION_WEEK = 1000 * 60 * 60 * 24 * 7;
 
-const cookieConfig = {
+const jwtTokenConfig: jwt.SignOptions= {
+    expiresIn: DURATION_WEEK,
+}
+
+export const cookieConfig: CookieOptions = {
     httpOnly: true,
     // secure:true,
+    path: '/',
     maxAge: DURATION_WEEK,
+    sameSite: true,
 }
 
 // TODO: replace with env.get
 // process.env should not be used in qwik; see https://qwik.dev/docs/env-variables/
 
 const secret_key = "very secret";
-async function makeToken(id: number) { return jwt.sign({ id }, secret_key, { expiresIn: DURATION_WEEK }) }
+
+async function makeToken(id: number) { return jwt.sign({ id }, secret_key, jwtTokenConfig) }
 
 export const registerAction = async (form: IRegister) => {
     try {
@@ -87,7 +94,7 @@ export const login: RequestHandler = async (req) => {
     if (isLoginProps(form)) {
         const token = await loginAction(form);
         if (!token) return send401(req);
-        req.cookie.set("token", token);
+        req.cookie.set("token", token.token, cookieConfig);
         req.json(200, { message: "Login Success" })
     } else {
         req.json(400, { body: "missing info" });
@@ -98,9 +105,21 @@ export const logout: RequestHandler = async ({ cookie, json }) => {
     json(200, { "message": "Logout Success" });
 }
 
+export const useHandleLogout = globalAction$((_data, request) => {
+    request.cookie.delete("token");
+})
+
 // export class AuthApi {
 //     constructor() {}
 //     register = register
 //     login = login
 //     logout = logout
 // }
+
+export const loggedInHandler: RequestHandler = async({cookie, redirect}) => {
+    const token = cookie.get('token')?.value;
+    if(!token) throw redirect(308, '/')
+    jwt.verify(token, secret_key, (error, _decoded) => {
+        if(error) throw redirect(308, '/')
+    })
+}

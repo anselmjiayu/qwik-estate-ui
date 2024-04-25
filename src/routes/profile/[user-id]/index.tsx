@@ -1,11 +1,23 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useContext, useContextProvider } from "@builder.io/qwik";
 import { List } from "~/components/list/list";
 import './index.scss'
 import { Chat } from "~/components/chat/chat";
+import { UserContext } from "~/state";
+import { RequestHandler, routeAction$, useNavigate } from "@builder.io/qwik-city";
+import { loggedInHandler } from "~/controller/auth";
 
 const user_img_link = "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
 
+export const onRequest: RequestHandler = loggedInHandler;
 export default component$(() => {
+
+    const nav = useNavigate();
+    const userInfo = useContext(UserContext);
+    const logoutAction = routeAction$((_data, { cookie }) => {
+        cookie.delete("token");
+        userInfo.value = null;
+    })
+    const logout = logoutAction();
     return (
         <div class="profilePage">
             <div class="details">
@@ -21,6 +33,10 @@ export default component$(() => {
                         </span>
                         <span>Username: <b>John Doe</b></span>
                         <span>Email: <b>john@example.com</b></span>
+                        <button onClick$={async () => {
+                            await logout.submit();
+                            nav('/');
+                                         }}>Log out</button>
                     </div>
                     <div class="title">
                         <h3>My List</h3>

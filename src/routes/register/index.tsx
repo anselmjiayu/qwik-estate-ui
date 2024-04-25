@@ -36,16 +36,16 @@ export default component$(() => {
         Password
           <input name="password" type="password" value={createUserAction.formData?.get("password")} />
         </label>
-        <button type="submit">Create</button>
+                  <button type="submit" disabled={createUserAction.isRunning}>Register</button>
       </Form>
               {createUserAction.value?.failed && (
-                  <div>
-                      <h2>Something went wrong!</h2>
+                  <div class="error">
+                      <span>Something went wrong!</span>
                   </div>
               )}
-              {createUserAction.value?.failed !== true  && (
+              {createUserAction.value?.failed && createUserAction.value?.failed !== true  && (
         <div>
-          <h2>User created successfully!</h2>
+          <span>User created successfully!</span>
         </div>
       )}
       <Link href="/login">Do you have an account?</Link>

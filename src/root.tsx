@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useContext, useContextProvider, useSignal } from "@builder.io/qwik";
 import {
   QwikCityProvider,
   RouterOutlet,
@@ -8,6 +8,7 @@ import { RouterHead } from "./components/router-head/router-head";
 
 import "./global.css";
 import "./index.scss";
+import { UserContext } from "./state";
 
 export default component$(() => {
   /**
@@ -16,6 +17,8 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
+    useContextProvider(UserContext, useSignal(null));
+    const _userContext = useContext(UserContext);
 
   return (
     <QwikCityProvider>
