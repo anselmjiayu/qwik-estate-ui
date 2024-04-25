@@ -1,26 +1,70 @@
 {
-  "name": "estateui",
+  "name": "qwik real estate app project",
+  "description": "A qwik project based on Lamadev's react real estate tutorial",
+  "engines": {
+    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
+  },
+  "engines-annotation": "Mostly required by sharp which needs a Node-API v9 compatible runtime",
   "private": true,
-  "version": "0.0.0",
+  "trustedDependencies": [
+    "sharp"
+  ],
+  "trustedDependencies-annotation": "Needed for bun to allow running install scripts",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "build": "qwik build",
+    "build.client": "vite build",
+    "build.preview": "vite build --ssr src/entry.preview.tsx",
+    "build.types": "tsc --incremental --noEmit",
+    "deploy": "echo 'Run \"npm run qwik add\" to install a server adapter'",
+    "dev": "vite --mode ssr",
+    "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
+    "fmt": "prettier --write .",
+    "fmt.check": "prettier --check .",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "postinstall": "prisma generate",
+    "preview": "qwik build preview && vite preview --open",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate:prod": "prisma migrate deploy",
+    "start": "vite --open --mode ssr",
+    "test": "vitest",
+    "test.unit": "vitest components",
+    "test.unit.ui": "vitest --ui components",
+    "qwik": "qwik"
   },
   "devDependencies": {
-    "@types/react": "^18.2.56",
-    "@types/react-dom": "^18.2.19",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.56.0",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
-    "vite": "^5.1.4"
+    "@builder.io/qwik": "^1.5.2",
+    "@builder.io/qwik-city": "^1.5.2",
+    "@builder.io/qwik-react": "^0.5.4",
+    "@prisma/client": "^5.13.0",
+    "@types/eslint": "^8.56.6",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/leaflet": "^1.9.11",
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "@vitest/ui": "^0.34.6",
+    "eslint": "^8.57.0",
+    "eslint-plugin-qwik": "^1.5.2",
+    "leaflet": "^1.9.4",
+    "prettier": "^3.2.5",
+    "prisma": "^5.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.75.0",
+    "typescript": "5.3.3",
+    "undici": "*",
+    "vite": "^5.1.6",
+    "vite-tsconfig-paths": "^4.2.1",
+      "vitest": "^0.34.6",
+    "@types/bcrypt": "^5.0.2"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "react-leaflet": "^4.2.1"
   }
 }

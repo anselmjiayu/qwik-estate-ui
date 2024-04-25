@@ -1,0 +1,193 @@
+@import "../../../responsive.scss";
+
+.singlePage {
+    display: flex;
+    height: 100%;
+
+@include md {
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.details {
+    height: 100%;
+    overflow-y: scroll;
+    flex:3;
+@include md {
+    flex:none;
+    height: max-content;
+    margin-bottom: 50px;
+}
+        .container{
+            padding-right: 50px;
+
+            .info {
+                margin-top: 20px;
+                .top {
+                    display: flex;
+                    justify-content: space-between;
+                    .post {
+                        display: flex;
+                        flex-direction: column;
+                        gap:20px;
+                        h2 {
+                            font-weight: 400;
+                        }
+                        .address {
+                            display: flex;
+                            gap: 5px;
+                            align-items: center;
+                            color: #888;
+                            font-size: 14px;
+
+                            img {
+                                width: 16px;
+                                height: 16px;
+                            }
+                        }
+
+                        .price {
+                            padding: 5px;
+                            background-color: rgba(254,205,81,0.43);
+                            border-radius: 5px;
+                            width: max-content;
+                            font-size: 20px;
+                            font-weight: 300;
+                        }
+                    }
+                    .user {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-around;
+                        gap: 5px;
+                        padding: 0 50px;
+                        border-radius: 10px;
+                        background-color: rgba(254,205,81,0.43);
+                        font-weight: 600;
+                       img {
+                           margin-top: 5px;
+                           width: 50px;
+                           height: 50px;
+                           border-radius: 50%;
+                           object-fit: cover;
+                       } 
+                       span {
+                           margin: 5px;
+                       }
+                    }
+                }
+
+                .bottom {
+                    margin-top: 50px;
+                    color: #555;
+                    line-height: 20px;
+                }
+
+            }
+        }
+    }
+    .features {
+        flex:2;
+        background-color: #fcf5f3;
+        height: 100%;
+        overflow-y: scroll;
+@include md {
+    flex:none;
+    height: max-content;
+    margin-bottom: 50px;
+}
+        .container {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .title {
+                font-weight: bold;
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            .feature {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                img {
+                    background-color: rgba(254,205,81,0.2);
+                }
+
+                .featureText {
+                    span {
+                        font-weight: bold;
+                    }
+                    p {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .listVertical, .listHorizontal {
+                display: flex;
+                padding: 20px 10px;
+                background-color: white;
+                border-radius: 10px;
+            }
+            .listVertical {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .listHorizontal, .sizes {
+                justify-content: space-between;
+            }
+            .sizes {
+                display: flex;
+                @include lg {
+                    font-size: 12px;
+                }
+                .size {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    background-color: white;
+                    padding: 10px;
+                    border-radius: 5px;
+                }
+            }
+
+            .mapContainer {
+                width: 100%;
+                height: 200px;
+            }
+
+            .buttons {
+                display: flex;
+                flex-direction: row;
+                padding-bottom: 10px;
+                button {
+                    padding: 8px;
+                    margin:5px 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background-color: white;
+                border: 1px solid #fece51;
+                border-radius: 5px;
+                cursor: pointer;
+
+                img {
+                    height: 16px;
+                    width: 16px;
+                    margin-right: 5px;
+                }
+                }
+            }
+        }
+    }
+}

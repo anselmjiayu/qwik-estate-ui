@@ -1,0 +1,20 @@
+@import '../responsive.scss';
+.wrapper {
+    height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+
+    @include md {
+    }
+    @include lg {
+    }
+}
+
+.content {
+    flex: 1;
+}
+
